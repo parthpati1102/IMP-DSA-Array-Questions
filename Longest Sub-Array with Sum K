@@ -1,3 +1,6 @@
+Note // if array contains the 0 and positive number then the optimal approch is using Two Pointer
+
+// If array contains the both positive and negative elements the optimal approch is using hash map only
 class Solution{
     public:
     int lenOfLongSubarr(int A[],  int N, int K) 
