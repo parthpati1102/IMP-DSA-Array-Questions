@@ -1,0 +1,108 @@
+// Brute force for this problem is using 3 loops
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+         int n = nums.size();
+         set<vector<int>> st;
+         for(int i = 0;i<n;i++){
+            for(int j = i + 1;j<n;j++){
+                for(int k = j + 1;k<n;k++){
+                    int sum = nums[i] + nums[j] + nums[k];
+
+                    if(sum == 0){
+                        vector<int> vec = {nums[i] , nums[j] , nums[k]};
+                        sort(vec.begin() , vec.end());
+                        st.insert(vec);
+                    }
+                }
+            }
+         }
+         
+         vector<vector<int>> finalAns;
+
+         for(auto pr : st){
+            finalAns.push_back(pr);
+         }
+
+         return finalAns;
+    }
+};
+
+//Better Solution fore this is using a two Loops and using SET Data Structure
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+         int n = nums.size();
+         set<vector<int>> st;
+         set<int> check;
+         for(int i = 0;i<n;i++){
+            for(int j = i + 1;j<n;j++){
+                 int key = -(nums[i] + nums[j]);
+                 if(check.find(key) != check.end()){
+                      vector<int> vec = {nums[i] , nums[j] , key};
+                      sort(vec.begin() , vec.end());
+                      st.insert(vec);
+                 }
+
+                 check.insert(nums[j]);
+            }
+
+            check.clear();
+         }
+         
+         vector<vector<int>> finalAns;
+
+         for(auto pr : st){
+            finalAns.push_back(pr);
+         }
+
+         return finalAns;
+    }
+};
+
+//This is the optimal approch using Two pointer approch
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        sort(nums.begin() , nums.end());
+
+         int n = nums.size();
+         vector<vector<int>> finalAns;
+
+         for(int i = 0;i<n;i++){
+            if(i > 0 && nums[i-1] == nums[i]) continue;
+
+            int j = i + 1;
+            int k = nums.size() - 1;
+            while(j < k){
+                int sum = nums[i] + nums[j] + nums[k];
+
+                if(sum == 0){
+                    vector<int> vec = {nums[i] , nums[j] , nums[k]};
+                    finalAns.push_back(vec);
+
+                    j++;
+                    k--;
+
+                    while(j < k && nums[j - 1] == nums[j]){
+                        j++;
+                    }
+
+                    while(k > j && nums[k + 1] == nums[k]){
+                        k--;
+                    }
+                }
+
+                else if(sum < 0){
+                    j++;
+                }
+
+                else{
+                    k--;
+                }
+            }
+        }
+
+        return finalAns; 
+    }
+};
