@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<int> forEveryRow(int  numRows){
+          int res = 1;
+          vector<int> vec;
+          vec.push_back(1);
+
+          for(int i = 1;i<numRows;i++){
+               res = res * (numRows - i); // logic behind this is permutation and combination
+               res = res / i;       // for this also
+
+               vec.push_back(res);
+          }
+
+          return vec;
+    }
+    vector<vector<int>> generate(int numRows) {
+         vector<vector<int>> pascal;
+
+         for(int i = 1;i<=numRows;i++){
+            pascal.push_back(forEveryRow(i));
+         }
+
+         return pascal;
+    }
+
+};
