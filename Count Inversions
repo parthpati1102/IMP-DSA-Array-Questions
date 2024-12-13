@@ -1,0 +1,61 @@
+class Solution {
+  public:
+    // Function to count inversions in the array.
+    int solve(vector<int> &arr , int start , int end, int mid){
+         vector<int> vec;
+         
+         int low = start;
+         int high = mid + 1;
+         int count = 0;
+         
+         while(low <= mid && high <= end){
+              if(arr[low] <= arr[high]){
+                  vec.push_back(arr[low]);
+                  low++;
+              }
+              else{
+                 vec.push_back(arr[high]);
+                 count  += (mid - low + 1);
+                 high++;
+              }
+         }
+         
+         while(low <= mid){
+             vec.push_back(arr[low]);
+             low++;
+         }
+         
+         while(high <= end){
+             vec.push_back(arr[high]);
+             high++;
+         }
+         
+         for(int i = start ;i<=end;i++){
+             arr[i] = vec[i - start];
+         }
+         
+         return count;
+    }
+    int merge(vector<int> &arr , int start , int end){
+        int count = 0;
+        int mid = (start + end) / 2;
+        
+         if(start >= end){
+             return 0;
+         }
+         
+         count +=  merge(arr , start , mid);
+         count +=  merge(arr , mid + 1 , end);
+         
+         count +=  solve(arr , start , end , mid);
+         
+         return count;
+    }
+    int inversionCount(vector<int> &arr) {
+        // Your Code Here
+        int low = 0;
+        int high = arr.size() - 1;
+        
+        return merge(arr, low , high);
+    }
+};
