@@ -24,3 +24,59 @@ class Solution {
         return vec;
     }
 };
+
+//Union of two sorted arrays optiaml approach
+class Solution {
+  public:
+    // a,b : the arrays
+    // Function to return a list containing the union of the two arrays.
+    vector<int> findUnion(vector<int> &a, vector<int> &b) {
+        // Your code here
+        // return vector with correct order of elements
+        
+         int n1 = a.size();
+         int n2 = b.size();
+         
+         int ptr1 = 0;
+         int ptr2 = 0;
+         
+         vector<int> unionArray;
+         
+         while(ptr1 < n1 && ptr2 < n2){
+             if(a[ptr1] <= b[ptr2]){
+                 if((unionArray.size()) == 0 || (unionArray.back() != a[ptr1])){
+                     unionArray.push_back(a[ptr1]);
+                 }
+                 
+                 ptr1++;
+             }
+             
+             else{
+                 if((unionArray.size() == 0) || (unionArray.back() != b[ptr2])){
+                     unionArray.push_back(b[ptr2]);
+                 }
+                 
+                 ptr2++;
+             }
+         }
+         
+         while(ptr1 < n1){
+             if((unionArray.size()) == 0 || (unionArray.back() != a[ptr1])){
+                     unionArray.push_back(a[ptr1]);
+              }
+                 
+              ptr1++;
+         }
+         
+         while(ptr2 < n2){
+             if((unionArray.size()) == 0 || (unionArray.back() != b[ptr2])){
+                     unionArray.push_back(b[ptr2]);
+              }
+                 
+              ptr2++;
+         }
+         
+         return unionArray;
+         
+    }
+};
