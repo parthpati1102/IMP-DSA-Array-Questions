@@ -1,5 +1,32 @@
 class Solution {
 public:
+   void solve(vector<vector<int>> &pascal , int n){
+         vector<int> vec(n , 1);
+         int fact = 1;
+ 
+         for(int i = 1 ; i < n; i++){
+             fact = fact * (n - i);
+             
+             fact = fact / i;
+
+             vec[i] = fact;
+         }
+
+         pascal.push_back(vec);
+   }
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> pascal;
+
+        for(int i = 1 ; i <= numRows ; i++){
+            solve(pascal , i);
+        }
+
+        return pascal;
+    }
+};
+
+class Solution {
+public:
     vector<int> forEveryRow(int  numRows){
           int res = 1;
           vector<int> vec;
